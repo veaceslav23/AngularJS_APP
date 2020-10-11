@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+<script src="angular.min.js"></script>
+<head>
+	 <meta charset="UTF-8">
+<style type="text/css">
+body{
+	background-color: #F8F8FF;
+	background-image: url(logo.png);
+	background-size: 500px,300px;
+	background-repeat: no-repeat;
+     
+}
+nav{
+  display:inline-block;
+  margin-top: 2%;
+  background-color:#F5FFFA;
+  box-shadow:0 1px 1px #FF7F50;
+  border-radius:2px;
+  margin-left: 37%;
+}
+
+nav a{
+  display:inline-block;
+  padding: 18px 30px;
+  color: black !important;
+  font-weight:bold;
+  font-size:16px;
+  text-decoration:none !important;
+  line-height:1;
+  text-transform: uppercase;
+  background-color:transparent;
+   font-family: "Fira Mono",monospace; 
+
+  -webkit-transition:background-color 0.25s;
+  -moz-transition:background-color 0.25s;
+  transition:background-color 0.25s;
+}
+
+nav a:hover:not(.active) {
+  background-color: #FF7F50;
+}
+
+.active {
+  background-color:#F0E68C;
+}
+h1{
+  margin-top: 50px;
+  font-family: "Harrington",fantasy;
+  text-align: center;
+  text-shadow: 2px 1px #FF4500;
+}
+.lista{
+  display: block;
+  margin:0px auto;
+  padding: 1%;
+  width: 35%;
+  background-color: #C0C0C0;
+  border-radius: 50px 20px;
+  box-shadow: 2px 1px #FF7F50;
+}
+li{
+  font-size: 20px;
+  font-family: "Papyrus",fantasy;
+}
+p{
+  font-size: 40px;
+  font-family: "Papyrus",fantasy; 
+  color: red; 
+  text-align: center;
+  text-shadow: 2px 1px black;
+}
+input[type=text]{
+  width: 76%;
+  padding:2%;
+box-shadow: 1px 1px #FF7F50;
+}
+button{
+  border-radius: 50px 20px;
+  width: 15%;
+  padding: 2%;
+  font-size: 16px;
+  background-color: #F0FFF0; 
+  font-family: "Papyrus",fantasy;
+}
+
+
+img {
+  vertical-align: middle;
+}
+
+/* Position the image container (needed to position the left and right arrows) */
+.container {
+  position: relative;
+  margin-top: 5%;
+  border:solid;
+  border-left-color: #FFF0F5;
+}
+
+/* Hide the images by default */
+.mySlides {
+  display: none;
+}
+
+/* Add a pointer when hovering over the thumbnail images */
+.cursor {
+  cursor: pointer;
+}
+
+/* Next & previous buttons */
+.prev,
+.next {
+  cursor: pointer;
+  position: absolute;
+  top: 40%;
+  width: auto;
+  padding: 16px;
+  margin-top: -50px;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover,
+.next:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Container for image text */
+.caption-container {
+  text-align: center;
+  background-color: #222;
+  padding: 2px 16px;
+  color: white;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Six columns side by side */
+.column {
+  float: left;
+  width: 16.66%;
+}
+
+/* Add a transparency effect for thumnbail images */
+.demo {
+  opacity: 0.6;
+}
+
+.active,
+.demo:hover {
+  opacity: 1;
+}
+
+h3{
+  font-family: "Brush Script Std",cursive;
+  font-size: 20px;
+  margin-left: 400px;
+}
+h4{
+ font-family: "Brush Script Std",cursive;
+ font-size: 10px;
+ margin-left: 400px; 
+}
+</style>
+</head>
+<body>
+  <nav class="{{active}}" ng-click="$event.preventDefault()">
+
+
+      <!-- When a link in the menu is clicked, we set the active variable -->
+
+      <a href="home.html" class="home" ng-click="active='d=home'">Home</a>
+      <a href="menu.html" class="menu" ng-click="active='menu'">Menu</a>
+      <a href="reservation.html" class="reservation" ng-click="active='reservation'">Reservation</a>
+       <a href="team.html" class="team" ng-click="active='team'">Rebels</a>
+       <a href="contact.html" class="contact" ng-click="active='contact'">Contact</a>
+       <a href="account.html" class="account" ng-click="active='account'">Account</a>
+    </nav>
+  <div ng-app="myShoppingList">
+
+    <w3-test-directive></w3-test-directive>
+
+
+  <div ng-controller="myCtrl" class="lista">
+    
+  <ul>
+    <p> Food </p>
+    <li ng-repeat="x in products">{{x}}<span ng-click="removeItem($index)"><sup>#</sup></span></li>
+  
+
+  <input type = "text"ng-model="addMe">
+
+  <button ng-click="addItem()">Add</button>
+
+  </ul>
+  </div>
+
+
+  <div class="container">
+  <div class="mySlides">
+ 
+    <img src="reb1.jpg" style="width:100%">
+  </div>
+
+  <div class="mySlides">
+    
+    <img src="reb2.jpg" style="width:100%">
+  </div>
+
+  <div class="mySlides">
+  
+    <img src="reb3.jpg" style="width:100%">
+  </div>
+    
+  <div class="mySlides">
+   
+    <img src="reb4.jpg" style="width:100%">
+  </div>
+
+  <div class="mySlides">
+  
+    <img src="reb5.jpg" style="width:100%">
+  </div>
+    <div class="mySlides">
+  
+    <img src="reb6.jpg" style="width:100%">
+  </div>
+    
+  <a class="prev" onclick="plusSlides(-1)">❮</a>
+  <a class="next" onclick="plusSlides(1)">❯</a>
+
+  <div class="caption-container">
+    <p id="caption"></p>
+  </div>
+
+  <div class="row">
+    <div class="column">
+      <img class="demo cursor" src="reb1.jpg" style="width:100%" onclick="currentSlide(1)">
+    </div>
+    <div class="column">
+      <img class="demo cursor" src="reb2.jpg" style="width:100%" onclick="currentSlide(2)" >
+    </div>
+    <div class="column">
+      <img class="demo cursor" src="reb3.jpg" style="width:100%" onclick="currentSlide(3)" >
+    </div>
+    <div class="column">
+      <img class="demo cursor" src="reb4.jpg" style="width:100%" onclick="currentSlide(4)" >
+    </div>
+    <div class="column">
+      <img class="demo cursor" src="reb5.jpg" style="width:100%" onclick="currentSlide(5)" >
+    </div>    
+    <div class="column">
+      <img class="demo cursor" src="reb6.jpg" style="width:100%" onclick="currentSlide(6)">
+    </div>
+  </div>
+  </div>
+
+  <div ng-controller="myControl" >
+
+
+   <p>Select the food to see the ingredients :</p>
+
+  <select  style="display:block;margin: 0px auto; width: 20%; padding: 1%;" ng-model="selectedIngredients" ng-options="x.denum for x in recet">
+  </select>
+
+  <h3 >You selected: {{selectedIngredients.denum}}</h3>
+
+  <h3 ng-copy= "count = count+1 " ng-init = "count = 0 ">Ingredients:{{selectedIngredients.ing}}</h3>
+  <h4>*The text has been copied {{count}} times.*</h4>
+
+   </div>
+</div>
+
+<script>
+var app = angular.module("myShoppingList", []); 
+app.controller("myCtrl", function($scope) {
+    $scope.products = ["Milk"];
+    $scope.addItem = function () {
+        $scope.products.push($scope.addMe);
+    }    
+    $scope.removeItem = function (x) {
+        $scope.products.splice(x, 1);
+    }
+});
+
+app.controller("myControl", function($scope) {
+$scope.recet = [
+        {denum : "Vegan Tzatziki", ing : "1/2 large cucumber; 11/2 cups coconut yogurt; 3 cloves garlic; 1/4 cup finely chopped fresh dill; 1 pinch each sea salt and black pepper; 11/2 tbsp lemon juice; 1-2 tbsp extra virgin olive oil"},
+        {
+          denum: "Tortellini",ing: "3 tablespoons butter, 2 tablespoons green onion, 2 tablespoons celery, 3 tablespoons all-purpose flour, 1/2 cups milk, 1/2 teaspoon freshly groun black pepper, 1 tablespoon tomato paste, 1 cup heavy whipping cream , 8 ounces cooked baby shrimp , 8 ounces crabmeat, 2 tablespooons sherry wine, garnish"
+        },
+        {
+          denum: "Sgroppino", ing: "12 ounces lemon sorbet, 8 ounces prosecco , 2 ounces vodka, mint leaves for garnish"
+        },
+      {
+      denum: "Cote de Boeuf ", ing: "1 Cote de Boeuf , 2 pound butter, 2 bunches thyme, 1 bunch rosemary, 1 head garlic, kosher salt, black pepper, canola oil"
+      }
+    ];
+
+
+});
+
+app.directive("w3TestDirective", function() {
+    return {
+        template : "<h1> Create your own food and we will cook it</h1>"
+    };
+});
+
+
+</script>
+
+
+<script>
+var slideIndex = 1;
+showSlides(slideIndex);
+
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  var i;
+  var slides = document.getElementsByClassName("mySlides");
+  var dots = document.getElementsByClassName("demo");
+  var captionText = document.getElementById("caption");
+  if (n > slides.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+  }
+  for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";
+  dots[slideIndex-1].className += " active";
+  captionText.innerHTML = dots[slideIndex-1].alt;
+}
+</script>
+
+
+</body>
+</html>

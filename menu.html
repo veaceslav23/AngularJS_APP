@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+
+	<head>
+		<meta charset="utf-8"/>
+		<title></title>
+
+<style>
+body{
+	background-color: #F8F8FF;
+	background-image: url(logo.png);
+	background-size: 500px,300px;
+	background-repeat: no-repeat,no-repeat;
+	background-position: left top;
+     
+}
+nav{
+  display:inline-block;
+  margin-top: 2%;
+  background-color:#F5FFFA;
+  box-shadow:0 1px 1px #FF7F50;
+  border-radius:2px;
+  margin-left: 37%;
+}
+
+nav a{
+  display:inline-block;
+  padding: 18px 30px;
+  color: black !important;
+  font-weight:bold;
+  font-size:16px;
+  text-decoration:none !important;
+  line-height:1;
+  text-transform: uppercase;
+  background-color:transparent;
+   font-family: "Fira Mono",monospace; 
+
+  -webkit-transition:background-color 0.25s;
+  -moz-transition:background-color 0.25s;
+  transition:background-color 0.25s;
+}
+
+nav a:hover:not(.active) {
+  background-color: #FF7F50;
+}
+
+form{
+	
+	background-color:#BDB76B;
+	border-radius: 2px;
+	box-shadow: 0 1px 1px #ccc;
+	width: 500px;
+	padding: 35px 50px;
+	margin: 80px auto;
+	border-radius: 50px 20px;
+}
+
+form h1{
+	
+	color: black;
+	text-align: center;
+	font-size:50px;
+	font-family:'Lucida Calligraphy', cursive;
+	line-height:1;
+	text-shadow:0 3px 0 rgba(0,0,0,0.1);
+
+}
+
+form ul{
+		border-top:2px solid #00FA9A;
+	list-style:none;
+     color: black;
+	font-size:20px;
+	font-weight:bold;
+	text-align: left;
+	margin:20px 0 15px;
+}
+
+form ul li{
+	     margin-top: 20px;
+	padding:20px 30px;
+	background-color: #DCDCDC;
+	margin-bottom:8px;
+	box-shadow:0 1px 1px black;
+	cursor:pointer;
+	font-family:'Lucida Calligraphy', cursive;
+	border-radius: 50px 20px;
+}
+
+form ul li span{
+	float:right;
+}
+
+form ul li.active{
+	background-color:#66CDAA;
+}
+
+div.total{
+	border-top:2px solid #00FA9A;
+	padding:15px 30px;
+	font-size:25px;
+	font-weight:bold;
+	text-align: left;
+	color:black;
+	font-family:'Lucida Calligraphy', cursive;
+}
+
+div.total span{
+	float:right;
+}
+</style>
+
+	</head>
+
+	<body>
+
+
+<nav ng-click="$event.preventDefault()">
+
+
+      
+      <a href="home.html" class="home" ng-click="home">Home</a>
+      <a href="menu.html" class="menu" ng-click="menu">Menu</a>
+      <a href="reservation.html" class="reservation" ng-click="reservation">Reservation</a>
+       <a href="team.html" class="team" ng-click="team">Rebels</a>
+       <a href="contact.html" class="contact" ng-click="contact">Contact</a>
+       <a href="account.html" class="account" ng-click="account">Account</a>
+    </nav>
+
+
+
+<div ng-app ng-controller="OrderFormController">  
+	 <img src="2.png" style="display:block;margin: 0 auto; margin-top:3%;">
+	 <img src="5.png" style="display:block;margin: 0 auto; margin-top:3%; width: 450px;height: 200px">
+		<form>
+<h1>Menu Rebels</h1>
+<ul>
+			
+				<li ng-repeat="service in services" ng-click="toggleActive(service)" ng-class="{active:service.active}">
+					
+					{{service.name}} <span>{{service.price | currency}}</span>
+				</li>
+			</ul>
+
+			<div class="total">
+				
+				Total: <span>{{total() | currency}}</span>
+			</div>
+
+		</form>
+
+</div>
+
+
+
+		<script>
+
+		function OrderFormController($scope){
+$scope.services = [
+		{
+			name: 'Vegan Tzatziki',
+			price: 18.00,
+			active:true
+		},{
+			name: 'Tonijn Big Eye',
+			price: 18.00,
+			active:false
+		},{
+			name: 'Tortellini',
+			price: 26.00,
+			active:false
+		},{
+			name: 'Noordzeetong / 500gm',
+			price: 45.00,
+			active:false
+		},
+		{
+			name: 'Kalf / Zwezerik',
+			price: 35.00,
+			active:false
+		},
+		{
+			name: 'Cote de Boeuf',
+			price: 70.00,
+			active:false
+		},
+		{
+			name: 'Tournedos / 200gr',
+			price: 32.00,
+			active:false
+		},
+		{
+			name: 'Bisque',
+			price: 18.00,
+			active:false
+		},
+		{
+			name: 'Hert / Rug Filet',
+			price: 32.00,
+			active:false
+		},
+		{
+			name: 'Noordzeevis van de Dag',
+			price: 26.00,
+			active:false
+		},
+		{
+			name: 'Kaas van Peterse',
+			price: 4.00,
+			active:false
+		},
+		{
+			name: 'Sgroppino',
+			price: 10.00,
+			active:false
+		},
+		{
+			name: 'Friandises',
+			price: 5.00,
+			active:false
+		},{
+			name: 'Domaine des Baumard',
+			price: 9.00,
+			active:false
+		}
+	];
+
+	$scope.toggleActive = function(s){
+		s.active = !s.active;
+	};
+
+	// Helper method for calculating the total price
+
+	$scope.total = function(){
+
+		var total = 0;
+
+		// Use the angular forEach helper method to
+		// loop through the services array:
+
+		angular.forEach($scope.services, function(s){
+			if (s.active){
+				total+= s.price;
+			}
+		});
+
+		return total;
+	};
+}
+</script>
+
+	</body>
+</html>

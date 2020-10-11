@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<script src="angular.min.js"></script>
+<head>
+	 <meta charset="UTF-8">
+<style type="text/css">
+body{
+	background-color: #F8F8FF;
+	background-image: url(logo.png);
+	background-size: 500px,300px;
+	background-repeat: no-repeat;
+     
+}
+nav{
+  display:inline-block;
+  margin-top: 2%;
+  background-color:#F5FFFA;
+  box-shadow:0 1px 1px #FF7F50;
+  border-radius:2px;
+  margin-left: 37%;
+}
+
+nav a{
+  display:inline-block;
+  padding: 18px 30px;
+  color: black !important;
+  font-weight:bold;
+  font-size:16px;
+  text-decoration:none !important;
+  line-height:1;
+  text-transform: uppercase;
+  background-color:transparent;
+   font-family: "Fira Mono",monospace; 
+
+  -webkit-transition:background-color 0.25s;
+  -moz-transition:background-color 0.25s;
+  transition:background-color 0.25s;
+}
+
+nav a:hover:not(.active) {
+  background-color: #FF7F50;
+}
+
+.active {
+  background-color:#F0E68C;
+}
+
+.mySlides {
+	display: none;
+}
+img {
+	vertical-align: middle;
+}
+
+/* Slideshow container */
+.slideshow-container {
+   
+  max-width: 1000px;
+  position: relative;
+  margin: 0px auto;
+  margin-top: 5%;
+}
+
+/* Caption text */
+.text {
+  color: #f2f2f2;
+  font-size: 15px;
+  padding: 8px 12px;
+  position: absolute;
+  bottom: 8px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+/* The dots/bullets/indicators */
+.dot {
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active {
+  background-color: #717171;
+}
+
+/* Fading animation */
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+@keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+/* On smaller screens, decrease text size */
+@media only screen and (max-width: 300px) {
+  .text {font-size: 11px}
+}
+
+h1{
+	font-family: "Curlz MT",fantasy;
+	font-size: 70px;
+	text-align: center;	
+	color: #FF7F50;
+}
+.tab{
+margin-left: 10%;
+padding: 10px;
+font-size: 30px;
+font-family: "Harrington",fantasy;
+color: #A0522D;
+text-shadow: 1px 1px black;
+}
+
+td{
+	padding: 4%;
+}
+img{
+	border:solid;
+	border-color: #FF7F50;
+}
+
+</style>
+</head>
+<body>
+	<nav class="{{active}}" ng-click="$event.preventDefault()">
+
+
+      <!-- When a link in the menu is clicked, we set the active variable -->
+
+      <a href="home.html" class="home" ng-click="active='d=home'">Home</a>
+      <a href="menu.html" class="menu" ng-click="active='menu'">Menu</a>
+      <a href="reservation.html" class="reservation" ng-click="active='reservation'">Reservation</a>
+       <a href="team.html" class="team" ng-click="active='team'">Rebels</a>
+       <a href="contact.html" class="contact" ng-click="active='contact'">Contact</a>
+       <a href="account.html" class="account" ng-click="active='account'">Account</a>
+    </nav>
+
+
+<div class="slideshow-container">
+
+<div class="mySlides fade">
+  <div class="numbertext"></div>
+  <img src="res3.jpeg" style="width:100%">
+</div>
+
+<!--<div class="mySlides fade">
+  <div class="numbertext">2 / 3</div>
+  <img src="res2.jpg" style="width:100%">
+</div>-->
+
+<div class="mySlides fade">
+  <div class="numbertext"></div>
+  <img src="res1.jpeg" style="width:100%">
+</div>
+
+</div>
+<br>
+
+<div style="text-align:center">
+  <span class="dot"></span> 
+  <span class="dot"></span> 
+</div>
+
+<div ng-app = "myApp" ng-init = " cond={firstname:'Marco',lastname:'Assink'}; 
+                                   bucat={firstname:'Barry',lastname:'Geerts'};
+                                   secund={firstname:'Nils',lastname:'Arlar'}">
+<div ng-controller="myCtrl">
+  <h1>{{myHeader}}</h1>
+</div>
+
+<div  class="tab">
+<table style="width: 100%">
+	<tr>
+         <td>Conducatorul echipei: {{cond.firstname + " " + cond.lastname}}</br><br>Bucatarul rebel: {{bucat.firstname + " " + bucat.lastname}}</br>
+         	<br>Bucatarul secundar: {{secund.firstname + " " + secund.lastname}}</br></td> 
+         <td align="center"><img src="index.jpg" height="300" width="440"> </td>
+     </tr>
+      </table>
+      </div>
+
+  </div>
+
+<script >
+	
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope, $timeout) {
+$scope.myHeader = "Welcome";
+  $timeout(function () {
+      $scope.myHeader = "Restaurant Rebels";
+  }, 4000)
+
+});
+
+
+</script>
+
+<script>
+var slideIndex = 0;
+showSlides();
+
+function showSlides() {
+  var i;
+  var slides = document.getElementsByClassName("mySlides");
+  var dots = document.getElementsByClassName("dot");
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";  
+  }
+  slideIndex++;
+  if (slideIndex > slides.length) {slideIndex = 1}    
+  for (i = 0; i < dots.length; i++) {
+    dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";  
+  dots[slideIndex-1].className += " active";
+  setTimeout(showSlides, 2000); // Change image every 2 seconds
+}
+</script>
+
+
+
+
+</body>
+</html>

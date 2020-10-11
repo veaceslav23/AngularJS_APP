@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<script src="angular.min.js"></script>
+<head>
+	 <meta charset="UTF-8">
+<style type="text/css">
+body{
+	background-color: #F8F8FF;
+	background-image: url(logo.png);
+	background-size: 500px,300px;
+	background-repeat: no-repeat;
+     
+}
+nav{
+  display:inline-block;
+  margin-top: 2%;
+  background-color:#F5FFFA;
+  box-shadow:0 1px 1px #FF7F50;
+  border-radius:2px;
+  margin-left: 37%;
+}
+
+nav a{
+  display:inline-block;
+  padding: 18px 30px;
+  color: black !important;
+  font-weight:bold;
+  font-size:16px;
+  text-decoration:none !important;
+  line-height:1;
+  text-transform: uppercase;
+  background-color:transparent;
+   font-family: "Fira Mono",monospace; 
+
+  -webkit-transition:background-color 0.25s;
+  -moz-transition:background-color 0.25s;
+  transition:background-color 0.25s;
+}
+
+nav a:hover:not(.active) {
+  background-color: #FF7F50;
+}
+
+
+h1{
+  padding-top: 70px;
+  margin: 0 auto;
+  text-align: center;
+margin-bottom: 30px;
+font-family: "Harrington",fantasy;
+font-size: 50px;
+text-shadow: 2px 1px #BC8F8F;
+  }
+
+
+fieldset{
+
+  margin: 0 auto;
+  background-color: #FFF5EE;
+
+width: 30%;
+display:block;
+color: black;
+box-shadow: 2px 2px #D2B48C;
+border-radius: 50px 20px;
+font-family: "Harrington",fantasy;
+}
+   .btn{
+    padding: 10px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+  margin: 4px 12px;
+  cursor: pointer;
+  background-color: #FAF0E6;
+  color: black;
+  border: 2px solid #800000;
+  font-family: "Harrington",fantasy;
+   }
+iframe{
+  display:block;
+  margin: 0 auto; 
+  margin-top:3%;
+ box-shadow: 2px 2px #D2B48C;
+border-radius: 50px 20px;
+  
+}
+
+
+table{
+display:block;
+margin: 0 auto;
+ margin-top:3%;
+   margin-top: 30px;
+  font-family: "Fira Mono",monospace; 
+  font-size: 20px;
+  text-align: center;
+  color: #8B4513;
+  border-style: dashed;
+  border-color: #5F9EA0;
+  font-family: "Palatino Linotype",serif;
+  background-color:#FFF8DC;
+
+}
+
+</style>
+</head>
+<body>
+  <nav class="{{active}}" ng-click="$event.preventDefault()">
+
+
+      <!-- When a link in the menu is clicked, we set the active variable -->
+
+      <a href="home.html" class="home" ng-click="active='d=home'">Home</a>
+      <a href="menu.html" class="menu" ng-click="active='menu'">Menu</a>
+      <a href="reservation.html" class="reservation" ng-click="active='reservation'">Reservation</a>
+       <a href="team.html" class="team" ng-click="active='team'">Rebelos</a>
+       <a href="contact.html" class="contact" ng-click="active='contact'">Contact</a>
+       <a href="account.html" class="account" ng-click="active='account'">Account</a>
+    </nav>
+
+<div ng-app="myApp" ng-controller="myCtrl">
+<form name = "studentForm" novalidate>
+  <h1>Your opinion is important for us </h1>
+  <img src="2.png" style="display:block;margin: 0 auto; margin-top:3%;">
+          <fieldset>
+
+                  <p>First Name:
+                  <input name = "firstname" type = "text" ng-model = "firstName" required>
+                     <span style = "color:red" ng-show = "studentForm.firstname.$dirty && studentForm.firstname.$invalid">
+                        <span ng-show = "studentForm.firstname.$error.required">First Name is required.</span>
+                     </span>
+                  </p>
+                  
+   <p>Last Name:
+                  <input name = "lastname" type = "text" ng-model = "lastName" required>
+                     <span style = "color:red" ng-show = "studentForm.lastname.$dirty && studentForm.lastname.$invalid">
+                        <span ng-show = "studentForm.lastname.$error.required">Last Name is required.</span>
+                     </span>
+                  </p>
+
+
+               <p>Your Email: 
+               <input name = "email" type = "email" ng-model = "email" length = "100" required>
+                     <span style = "color:red" ng-show = "studentForm.email.$dirty && studentForm.email.$invalid">
+                        <span ng-show = "studentForm.email.$error.required">Email is required.</span>
+                        <span ng-show = "studentForm.email.$error.email">Invalid email address.</span>
+                     </span>
+                  </p>
+               
+               <p>Mesage:
+                <textarea id="mesaj" name="mesage" rows="4" cols="30"></textarea>
+            </p>
+                 
+                     <button class="btn" ng-click = "reset()">Reset</button>
+                
+                
+                     <button class= "btn" ng-disabled = "studentForm.firstname.$dirty &&
+                        studentForm.firstname.$invalid || studentForm.email.$dirty &&
+                        studentForm.email.$invalid || studentForm.lastname.$dirty &&
+                        studentForm.lastname.$invalid " ng-click="submit()">Submit</button>
+                  
+             
+          
+      </fieldset>
+         </form>
+<img src="3.png" style="display:block;margin: 0 auto; margin-top:3%;">
+
+
+
+
+<div style="display:block;margin: 0 auto; margin-top:3%;" ng-controller="myApplication">
+<table id="myapp">
+<tr ng-repeat="x in contacts | orderBy: 'contacts' | filter: 'a'">
+<td> {{x.adres}}</td>
+</tr>
+<tr>
+<td colspan="2"> <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d9812.949783339063!2d5.2949167!3d52.0572!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x5424dde3e0dfd7fe!2sRestaurant%20Rebels!5e0!3m2!1sen!2s!4v1602283811115!5m2!1sen!2s" width="1320" height="450" frameborder="0"  allowfullscreen="" aria-hidden="false" tabindex="0"></iframe></td>
+</tr>
+</table>
+
+</div>
+
+   <script>
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope) {
+ 
+   $scope.reset = function(){
+               $scope.firstName = "";
+               $scope.lastName = "";
+               $scope.email = "";
+            }
+            
+            $scope.reset();
+
+});
+
+app.controller('myApplication',function($scope){
+  $scope.contacts =[
+              {adres: 'Strada: Arnhemsebovenweg 46, 3971 MK Driebergen-Rijsenburg'},
+              {adres: 'Telefon: 0343446076'},
+              {adres: 'Fax: 0343446076'},
+              {adres: 'Email: info@restaurant-rebeles.nl'}
+
+  ];
+});
+
+</script>
+</body>
+</html>

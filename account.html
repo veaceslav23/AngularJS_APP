@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+<script src="angular.min.js"></script>
+<head>
+	 <meta charset="UTF-8">
+<style type="text/css">
+body{
+	background-color: #F8F8FF;
+	background-image: url(logo.png);
+	background-size: 500px,300px;
+	background-repeat: no-repeat;
+     
+}
+nav{
+  display:inline-block;
+  margin-top: 2%;
+  background-color:#F5FFFA;
+  box-shadow:0 1px 1px #FF7F50;
+  border-radius:2px;
+  margin-left: 37%;
+}
+
+nav a{
+  display:inline-block;
+  padding: 18px 30px;
+  color: black !important;
+  font-weight:bold;
+  font-size:16px;
+  text-decoration:none !important;
+  line-height:1;
+  text-transform: uppercase;
+  background-color:transparent;
+   font-family: "Fira Mono",monospace; 
+
+  -webkit-transition:background-color 0.25s;
+  -moz-transition:background-color 0.25s;
+  transition:background-color 0.25s;
+}
+
+nav a:hover:not(.active) {
+  background-color: #FF7F50;
+}
+
+.active {
+  background-color:#F0E68C;
+}
+ .aplication{
+        background-color:#FAEBD7;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 70%;
+        margin: 160px auto;
+        text-align: center;
+        background-image: url(1.png);
+       background-repeat:no-repeat;
+        background-size: 400px 250px;
+        padding: 20px;
+        font-family: fantasy;
+        border-radius: 15px;
+        box-shadow: 2px 2px 4px #FF7F50;
+        }
+button{
+  background-color: #F0F8FF;
+  font-size: 15px;
+  border-color: black;
+  border-radius: 50px 20px;
+  box-shadow: 2px 2px #FF7F50;
+}
+input[type=reset]{
+  background-color: #F0F8FF;
+  font-size: 15px;
+  border-color: black;
+  border-radius: 50px 20px;
+  box-shadow: 2px 2px #FF7F50;
+}
+.modal-overlay {
+  position:absolute;
+  z-index:9999;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background-color:#F0F8FF;
+  opacity: 0.8;
+
+}
+.modal-background {
+  z-index:10000;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50px 20px;
+  box-shadow: 2px 2px black;
+  background-color: #E6E6FA;
+
+}
+.modal-content {
+  padding:10px;
+  text-align: center;
+}
+.modal-close {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  padding: 5px;
+  cursor: pointer;
+  display: inline-block;
+}
+h1{
+  margin-left: 10%;
+  font-family:"Harrington",fantasy;
+  font-size: 50px;
+  text-align: center;
+  text-shadow: 1px 1px #0000FF;
+}
+h2{
+  margin-left: 200px;
+  color: #4B0082;
+}
+</style>
+</head>
+<body>
+  <nav class="{{active}}" ng-click="$event.preventDefault()">
+
+
+      <!-- When a link in the menu is clicked, we set the active variable -->
+
+      <a href="home.html" class="home" ng-click="active='d=home'">Home</a>
+      <a href="menu.html" class="menu" ng-click="active='menu'">Menu</a>
+      <a href="reservation.html" class="reservation" ng-click="active='reservation'">Reservation</a>
+       <a href="team.html" class="team" ng-click="active='team'">Rebels</a>
+       <a href="contact.html" class="contact" ng-click="active='contact'">Contact</a>
+       <a href="account.html" class="account" ng-click="active='account'">Account</a>
+ </nav>
+
+
+<div ng-app="myApp" >
+   <div ng-controller="myCtrl" class="aplication" >
+
+        <h1>{{txt | limitTo : 17}}</h1>
+
+ <h2> Daca nu ai account -> inregistreaza-te</h2>
+        
+
+        <div ng-show="primaPagina" ng-init="primaPagina = true">
+           <button ng-click="Logare()"> Logare </button>
+          <button ng-click="Inregistrare()"> Inregistrare </button>
+ 
+</div>
+           <div ng-show="showLogare" ng-init="showLogare = false; countLog = 0">
+                <p> <b> Logarea: </b> </p>
+                <form>
+                   Login: <input type="text" ng-model="user"> </br> </br>
+                   Parola: <input type="password" ng-model="pass"> </br> </br>
+                   <p ng-bind="errorLog">{{errorLog}}</p>
+                   <button ng-click="toggleModal()" ng-disabled="user == null || pass == null"> Autentificare </button>
+                   <input type="reset" name="sterge" value="Șterge">
+                  
+               </form>
+      <modal-window show='modalShown' width='300px' height='80px'>
+          <p ng-bind="errorLog">{{errorLog}}</p>
+        </modal-window>
+           </div>
+
+
+<div ng-show="showInregistrare" ng-init="showInregistrare = false; countInr = 0">
+            <p> <b> Inregistrarea: </b> </p>
+            <form>
+               Login: <input type="text" ng-model="user1 " id="input" name="input"> </br> </br>
+               Parola: <input type="password" ng-model="pass1"> </br> </br>
+               <p ng-bind="error">{{error}}</p>
+               <button ng-click="confirmaInregistrare()" ng-disabled="user1 == null || pass1 == null"> Confirma </button>
+               <input type="reset" name="sterge" value="Șterge">
+           </form>
+       </div>
+
+       <div ng-hide="avertizare" ng-init="avertizare = true">
+       </br>
+       <p> Login sau parola gresita! </p>
+   </div>
+</div>
+
+<script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function($scope) {
+
+$scope.txt = "Welcome my friend to your page"
+     
+    //Logare
+    $scope.Logare = function() {
+
+       $scope.showLogare = true;
+       $scope.showInregistrare = false;  
+ }
+
+
+ //Inregistrare
+    $scope.Inregistrare = function() {
+
+       $scope.showLogare = false;
+       $scope.showInregistrare = true;
+
+   }
+
+
+   var userNou;
+   var parolaNoua;
+
+    //Confirma date
+    $scope.confirmaInregistrare = function() {
+
+      $scope.regex = "[a-zA-Z0-9]{4,14}";
+      $scope.error = "";
+      if($scope.user1.match($scope.regex) && $scope.pass1.match($scope.regex))
+        {
+          userNou = $scope.user1;
+          parolaNoua = $scope.pass1;
+
+          $scope.showLogare = true;
+          $scope.showInregistrare = false;
+      }
+      else
+      {
+        $scope.error = "Date nevalide";
+      }
+  }
+
+  //Autetinficare
+  $scope.modalShown = false;
+    $scope.toggleModal = function() {
+      
+   $scope.reg = "[a-zA-Z0-9]{4,14}";
+      $scope.errorLog = "";
+      if($scope.user.match($scope.reg) && $scope.pass.match($scope.reg))
+      {
+      if($scope.user == userNou && $scope.pass == parolaNoua)
+        {
+          $scope.primaPagina = false;
+          $scope.showPage = true;
+          $scope.avertizare = true;
+          $scope.showLogare = false;
+          window.location='home.html';
+      }
+      else 
+       $scope.avertizare = false;
+     }
+     else{
+      $scope.showLogare = true;
+      $scope.errorLog = "Ati introdus date invalide";
+      $scope.modalShown = !$scope.modalShown;
+     }
+}
+    $scope.iesire = function() {
+      $scope.cost = 0;
+        $scope.s1 = false;
+        $scope.s2 = false;
+        $scope.s3 = false;
+        $scope.s4 = false;
+        $scope.t1 = false;
+        $scope.t2 = false;
+        $scope.t3 = false;
+        $scope.t4 = false;
+        $scope.primaPagina = true;
+        $scope.showPage = false;
+    }
+
+});
+
+
+app.directive('modalWindow', function() {
+  return {
+    restrict: 'E',
+    scope: {
+      show: '='
+    },
+    replace: true, // Replace with template
+    transclude: true, // To use custom content
+    link: function(scope, element, attrs) {
+
+      scope.windowStyle = {};
+
+      if (attrs.width) {
+        scope.windowStyle.width = attrs.width;
+      }
+      if (attrs.height) {
+        scope.windowStyle.height = attrs.height;
+      }
+
+      scope.hideModal = function() {
+        scope.show = false;
+      };
+    },
+    template: "<div ng-show='show'><div class='modal-overlay' ng-click='hideModal()'></div><div class='modal-background' ng-style='windowStyle'><div class='modal-close' ng-click='hideModal()'>X</div><div class='modal-content' ng-transclude></div></div></div>"
+  };
+});
+</script>
+</body>
+</html>
